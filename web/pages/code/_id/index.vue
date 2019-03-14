@@ -9,40 +9,55 @@
           <a :href="carbonlink" target="_blank" title="导出图片">
             <icon name="image" size="20" />
           </a>
-          <a :href="carbonlink" target="_blank" title="导出图片">
+          <a :href="carbonlink" target="_blank" title="收藏">
             <icon name="star" size="20" />
           </a>
-          <a :href="carbonlink" target="_blank" title="导出图片">
+          <a :href="carbonlink" target="_blank" title="有用">
             <icon name="thumbs-up" size="20" />
           </a>
         </div>
       </div>
       <div class="card-body code-body">
-        <pre><code class="language-javascript">{{ code.code }}</code></pre>
+        <editor flag="text" v-model="code.code" :options="codeEditorOptions" :mode="codemode" />
       </div>
     </div>
     <div class="card mt-4">
-      <div class="card-body">这里细心的同学可能会提出，选取不同的基准时，是否会有不同性能表现，答案是肯定的，但，因为，我是搞前端的，对算法不是很了解，所以，这个坑留给厉害的人来填补</div>
+      <div class="card-body">{{ code.remark }}</div>
     </div>
   </section>
 </template>
 
 <script>
 import Prism from 'prismjs'
+import Editor from '@/components/editor'
 export default {
+  async asyncData(context) {
+    const res = await context.app.$axios().get('code/' + context.params.id)
+    return {
+      code: res.data.data
+    }
+  },
   data() {
     return {
-      code: {
-        title: '快速排序',
-        code: `a
-v
-`
+      codeEditorOptions: {
+        lineNumbers: true,
+        theme: 'paraiso-dark'
       }
     }
+  },
+  components: {
+    Editor
   },
   computed: {
     carbonlink: function () {
       return `https://carbon.now.sh/?bg=rgba(255%2C255%2C255%2C1)&t=3024-night&wt=none&l=javascript&ds=true&dsyoff=20px&dsblur=68px&wc=true&wa=true&pv=48px&ph=32px&ln=false&fm=Hack&fs=14px&lh=133%25&si=false&code=${encodeURIComponent(this.code.code)}&wm=false`
+    },
+    codemode: function () {
+      if (!this.code.language) {
+        return ''
+      }
+      const lang = this.code.language.toLowerCase()
+      return lang === 'html' ? 'htmlmixed' : lang
     }
   },
   mounted() {
@@ -51,15 +66,17 @@ v
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .code-box {
   max-width: 800px;
 }
 .code-body {
   padding: 0;
-  pre {
-    margin: 0;
-    border-radius: 0;
+  .meditor {
+    border: 0;
+    .con {
+      padding: 0;
+    }
   }
 }
 </style>

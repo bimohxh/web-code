@@ -4,7 +4,7 @@
       <div class="col-8">
         <div class="card">
           <ul class="list-group list-group-flush">
-            <router-link to="" v-for="code in codes" :key="code.title" class="list-group-item">
+            <router-link :to="'/code/' + code.id" v-for="code in codes" :key="code.title" class="list-group-item">
               {{ code.title }}
             </router-link>
           </ul>
@@ -23,24 +23,19 @@
 
 <script>
 export default {
-  data() {
+  async asyncData(context) {
+    const res = await context.app.$axios().get('code')
     return {
-      codes: [
-        {
-          title: '如何成为一名全栈开发工程师'
-        }, {
-          title: '快速排序'
-        }, {
-          title: '手机号正则验证'
-        }, {
-          title: '如何成为一名全栈开发工程师'
-        }, {
-          title: '快速排序'
-        }, {
-          title: '手机号正则验证'
-        }
-      ]
+      codes: res.data.data.items
     }
+  },
+  methods: {
+    fetchData: async function () {
+      const res = await this.$axios().get('code')
+      this.codes = res.data.data.items
+    }
+  },
+  created() {
   }
 }
 </script>

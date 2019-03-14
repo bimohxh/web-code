@@ -1,0 +1,129 @@
+[
+  {
+    "name": "会员管理",
+    "children": [
+      {
+        "name": "会员管理",
+        "key": "mem.*"
+      },
+      {
+        "name": "提现申请",
+        "key": "cashapply.*"
+      }
+    ]
+  },
+  {
+    "name": "内容管理",
+    "children": [
+      {
+        "name": "Banner 管理",
+        "key": "banner.*"
+      },
+      {
+        "name": "陪护日记",
+        "key": "diary.*"
+      },
+      {
+        "name": "医美百科",
+        "key": "wiki.*"
+      }
+    ]
+  },
+  {
+    "name": "产品管理",
+    "children": [
+      {
+        "name": "产品列表",
+        "key": "product.*"
+      },
+      {
+        "name": "本地严选",
+        "key": "preferr.*"
+      },
+      {
+        "name": "预约列表",
+        "key": "book.*"
+      },
+      {
+        "name": "用户推荐",
+        "key": "recomems.*"
+      },
+      {
+        "name": "歆人专属",
+        "key": "escort.*"
+      },
+      {
+        "name": "专题栏目",
+        "key": "subject.*"
+      }
+    ]
+  },
+  {
+    "name": "组织架构管理",
+    "children": [
+      {
+        "name": "员工管理",
+        "key": "staff.*"
+      },
+      {
+        "name": "架构管理",
+        "key": "org.*"
+      },
+      {
+        "name": "角色管理",
+        "key": "role.*"
+      },
+      {
+        "name": "代理管理",
+        "key": "proxy.*"
+      }
+    ]
+  },
+  {
+    "name": "客户管理",
+    "children": [
+      {
+        "name": "意向客户",
+        "key": "intention_customer.*"
+      },
+      {
+        "name": "报备客户",
+        "key": "report_customer.*"
+      },
+      {
+        "name": "到院客户",
+        "key": "hospital_customer.*"
+      }
+    ]
+  },
+  {
+    "name": "订单管理",
+    "children": [
+      {
+        "name": "订单管理",
+        "key": "order.*"
+      }
+    ]
+  },
+  {
+    "name": "系统管理",
+    "children": [
+      {
+        "name": "全局配置",
+        "key": "global.*"
+      },
+      {
+        "name": "开通城市",
+        "key": "open-city.*"
+      },
+      {
+        "name": "微信配置",
+        "key": "weixin.*"
+      },
+      {
+        "name": "安卓版本",
+        "key": "apk.*"
+      }
+    ]
+  }
+]

@@ -10,7 +10,7 @@
           </div>
         </div>
         <div>
-          <button class="btn btn-sm btn-primary">
+          <button class="btn btn-sm btn-primary" @click="save">
             <icon name="send" size="15" /> 提 交
           </button>
         </div>
@@ -23,7 +23,7 @@
       </div>
 
       <div class="card-footer">
-        <input type="text" class="form-control" placeholder="给你的代码取个标题吧"/>
+        <input type="text" class="form-control" placeholder="给你的代码取个标题吧" v-model="code.title" />
       </div>
     </div>
   </section>
@@ -60,6 +60,11 @@ export default {
     codemode: function () {
       const lang = this.code.language.toLowerCase()
       return lang === 'html' ? 'htmlmixed' : lang
+    }
+  },
+  methods: {
+    save: async function () {
+      await this.$axios().post('code', this.code)
     }
   },
   components: {

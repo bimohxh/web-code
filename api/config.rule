@@ -1,0 +1,22 @@
+{
+  "server": {
+    "port": "5000"
+  },
+  "db": {
+    "host": "127.0.0.1",
+      "user": "root",
+      "password" : "hxh568701382",
+      "database" : "webs",
+      "charset"  : "utf8"
+  },
+  "qiniu": {
+    "access_key": "xx",
+    "secret_key": "xx",
+    "cdn": "xx"
+  },
+  "sms": {
+    "access_key": "x'x",
+    "secret_key": "xxxx"
+  },
+  "jwtkey": "hxh568701382ssjjdjdjfieek"
+}

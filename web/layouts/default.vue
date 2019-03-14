@@ -11,22 +11,10 @@
       <div id="bd-main-nav" class="justify-content-between navbar-collapse collapse" style="display: none;">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a href="/docs" class="nav-link" target="_self">Docs</a>
+            <a href="/docs/components" class="nav-link active" target="_self">广场</a>
           </li>
           <li class="nav-item">
-            <a href="/docs/components" class="nav-link active" target="_self">Components</a>
-          </li>
-          <li class="nav-item">
-            <a href="/docs/directives" class="nav-link" target="_self">Directives</a>
-          </li>
-          <li class="nav-item">
-            <a href="/docs/reference" class="nav-link" target="_self">Reference</a>
-          </li>
-          <li class="nav-item">
-            <a href="/docs/misc" class="nav-link" target="_self">Misc</a>
-          </li>
-          <li class="nav-item">
-            <a href="/play" class="nav-link" target="_self">Play</a>
+            <router-link to="/code/new" class="nav-link">发布代码</router-link>
           </li>
         </ul>
       </div>

@@ -1,0 +1,328 @@
+[
+  {
+    "name": "系统",
+    "children": [
+      {
+        "name": "会员管理",
+        "route": "mem",
+        "icon": "fa-user-plus",
+        "children": [
+          {
+            "name": "会员管理",
+            "route": "mem",
+            "to": "/mem",
+            "powers": ["mem.*"]
+          },
+          {
+            "name": "提现申请",
+            "route": "cashapply",
+            "to": "/mem/cashapply",
+            "powers": ["cashapply.*"]
+          }
+        ]
+      },
+      {
+        "name": "内容管理",
+        "route": "cms",
+        "icon": "fa-train",
+        "children": [
+          {
+            "name": "Banner 管理",
+            "route": "banner",
+            "to": "/banner",
+            "powers": ["banner.*"]
+          },
+          {
+            "name": "陪护日记",
+            "route": "diary",
+            "to": "/diary",
+            "powers": ["diary.*"]
+          },
+          {
+            "name": "新增日记",
+            "route": "diary_new",
+            "to": "/diary/new",
+            "hide": true,
+            "powers": ["diary.*"]
+          },
+          {
+            "name": "编辑日记",
+            "route": "diary_edit",
+            "to": "/diary/edit",
+            "hide": true,
+            "powers": ["diary.*"]
+          },
+          {
+            "name": "医美百科",
+            "route": "wiki",
+            "to": "/wiki",
+            "powers": ["wiki.*"]
+          },
+          {
+            "name": "百科详情",
+            "route": "wiki_detail",
+            "hide": true,
+            "powers": ["wiki.*"]
+          }
+        ]
+      },
+      {
+        "name": "产品管理",
+        "route": "product",
+        "icon": "fa-gift",
+        "children": [
+          {
+            "name": "产品列表",
+            "route": "product_vip",
+            "to": "/product/vip",
+            "powers": ["product.*"]
+          },
+          {
+            "name": "本地严选",
+            "route": "preferr",
+            "to": "/preferr",
+            "powers": ["preferr.*"]
+          },
+          {
+            "name": "预约列表",
+            "route": "product_book",
+            "to": "/product/book",
+            "powers": ["book.*"]
+          },
+          {
+            "name": "用户推荐",
+            "route": "product_recomems",
+            "to": "/product/recomems",
+            "powers": ["recomems.*"]
+          },
+          {
+            "name": "歆人专属",
+            "route": "product_escort",
+            "to": "/product/escort",
+            "powers": ["escort.*"]
+          },
+          {
+            "name": "专题栏目",
+            "route": "subject",
+            "to": "/subject",
+            "powers": ["subject.*"]
+          }
+        ]
+      },
+      {
+        "name": "账户管理",
+        "route": "admin",
+        "icon": "fa-user-secret",
+        "children": [
+          {
+            "name": "密码修改",
+            "route": "admin_pwd",
+            "to": "/admin/pwd"
+          }
+        ]
+      },
+      {
+        "name": "组织架构",
+        "icon": " fa-sitemap",
+        "children": [
+          {
+            "name": "员工管理",
+            "route": "staff",
+            "to": "/staff",
+            "powers": ["staff.*"]
+          },
+          {
+            "name": "新增员工",
+            "route": "staff_new",
+            "to": "/staff/new",
+            "hide": true,
+            "powers": ["staff.*"]
+          },
+          {
+            "name": "编辑员工",
+            "route": "staff_edit",
+            "to": "/staff/edit",
+            "hide": true,
+            "powers": ["staff.*"]
+          },
+          {
+            "name": "架构管理",
+            "route": "org",
+            "to": "/org",
+            "powers": ["org.*"]
+          },
+          {
+            "name": "角色管理",
+            "route": "role_list",
+            "to": "/role/list",
+            "powers": ["role.*"]
+          },
+          {
+            "name": "代理管理",
+            "route": "proxy",
+            "to": "/proxy",
+            "powers": ["proxy.*"]
+          },
+          {
+            "name": "编辑代理",
+            "route": "proxy_edit",
+            "to": "/proxy/edit",
+            "hide": true,
+            "powers": ["proxy.*"]
+          },
+          {
+            "name": "新增代理",
+            "route": "proxy_new",
+            "to": "/proxy/new",
+            "hide": true,
+            "powers": ["proxy.*"]
+          },
+          {
+            "name": "新增角色",
+            "route": "role_new",
+            "to": "/role/new",
+            "hide": true,
+            "powers": ["role.*"]
+          },
+          {
+            "name": "编辑角色",
+            "route": "role_edit",
+            "to": "/role/edit",
+            "hide": true,
+            "powers": ["role.*"]
+          },
+          {
+            "name": "账户列表",
+            "route": "admin_accounts",
+            "to": "/admin/accounts",
+            "powers": ["account.*"],
+            "hide": true
+          }
+        ]
+      },
+      {
+        "name": "客户管理",
+        "icon": " fa-handshake-o",
+        "children": [
+          {
+            "name": "意向客户",
+            "route": "customer_intention",
+            "to": "/customer/intention",
+            "powers": ["intention_customer.*"]
+          },
+          {
+            "name": "报备客户",
+            "route": "customer_report",
+            "to": "/customer/report",
+            "powers": ["report_customer.*"]
+          },
+          {
+            "name": "到院客户",
+            "route": "customer_hospital",
+            "to": "/customer/hospital",
+            "powers": ["hospital_customer.*"]
+          },
+          {
+            "name": "编辑意向客户",
+            "route": "customer_intention_edit",
+            "to": "/customer/intention/edit",
+            "hide": true,
+            "powers": ["intention_customer.*"]
+          },
+          {
+            "name": "新增意向客户",
+            "route": "customer_intention_new",
+            "to": "/customer/intention/new",
+            "hide": true,
+            "powers": ["intention_customer.*"]
+          },
+          {
+            "name": "编辑报备客户",
+            "route": "customer_report_edit",
+            "to": "/customer/report/edit",
+            "hide": true,
+            "powers": ["report_customer.*"]
+          },
+          {
+            "name": "新增报备客户",
+            "route": "customer_report_new",
+            "to": "/customer/report/new",
+            "hide": true,
+            "powers": ["report_customer.*"]
+          },
+          {
+            "name": "编辑到院客户",
+            "route": "customer_hospital_edit",
+            "to": "/customer/hospital/edit",
+            "hide": true,
+            "powers": ["hospital_customer.*"]
+          },
+          {
+            "name": "新增到院客户",
+            "route": "customer_hospital_new",
+            "to": "/customer/hospital/new",
+            "hide": true,
+            "powers": ["hospital_customer.*"]
+          }
+        ]
+      },
+      {
+        "name": "订单管理",
+        "icon": " fa-shopping-bag",
+        "children": [
+          {
+            "name": "订单管理",
+            "route": "order",
+            "to": "/order",
+            "powers": ["order.*"]
+          },
+          {
+            "name": "新增订单",
+            "route": "order_new",
+            "to": "/order/new",
+            "hide": true,
+            "powers": ["order.*"]
+          },
+          {
+            "name": "编辑订单",
+            "route": "order_edit",
+            "to": "/order/edit",
+            "hide": true,
+            "powers": ["order.*"]
+          }
+        ]
+      },
+      {
+        "name": "系统管理",
+        "icon": " fa-globe",
+        "route": "system",
+        "children": [
+          {
+            "name": "全局配置",
+            "route": "system_global",
+            "to": "/system/global",
+            "powers": ["global.*"]
+          },
+          {
+            "name": "开通城市",
+            "route": "system_city",
+            "to": "/system/city",
+            "powers": ["open-city.*"]
+          },
+          {
+            "name": "微信配置",
+            "route": "system_weixin",
+            "to": "/system/weixin",
+            "powers": ["weixin.*"]
+          },
+          {
+            "name": "安卓版本",
+            "route": "system_apk",
+            "to": "/system/apk",
+            "powers": ["apk.*"]
+          }
+        ]
+      }
+    ]
+  }
+]
