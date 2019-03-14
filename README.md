@@ -20,3 +20,11 @@ $ npm run generate
 ```
 
 For detailed explanation on how things work, checkout [Nuxt.js docs](https://nuxtjs.org).
+
+
+### win10 ubuntu bash
+
+```bash
+docker build -t newnode .
+docker run -d -p 3000:3000 -v C:/www/web-code:/var/www/html newnode
+```

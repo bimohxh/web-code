@@ -81,8 +81,7 @@ body {
 }
 
 .list-group-item {
-  border: none;
-  border-bottom: 1px solid #ebeced;
+  border: 1px solid #ebeced;
 }
 
 a {
@@ -91,6 +90,16 @@ a {
 
 .card-header {
   border-bottom: 1px solid #ebeced;
+  background-color: #FFF;
+}
+
+.card-footer {
+  background-color: #FFF;
+}
+
+@font-face {
+  font-family: 'Roboto Mono';
+  src: url('/fonts/RobotoMono-Regular.ttf')
 }
 
 </style>

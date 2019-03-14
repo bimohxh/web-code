@@ -35,6 +35,7 @@ module.exports = {
   ** Plugins to load before mounting the App
   */
   plugins: [
+    '~/plugins/icon'
   ],
 
   /*
@@ -45,7 +46,7 @@ module.exports = {
     '@nuxtjs/axios',
     // Doc: https://bootstrap-vue.js.org/docs/
     'bootstrap-vue/nuxt',
-    '@nuxtjs/pwa',
+    '@nuxtjs/pwa'
   ],
   /*
   ** Axios module configuration

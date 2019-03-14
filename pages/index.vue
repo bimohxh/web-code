@@ -52,7 +52,6 @@ export default {
     color: #34495e;
     &:hover {
       background-color: #f7f8fa;
-      padding-left: 25px;
     }
   }
 }
