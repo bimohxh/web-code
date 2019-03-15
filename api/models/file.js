@@ -1,7 +1,7 @@
 const DB = require('../lib/db')
 
-module.exports = DB.model('Mem', {
-  tableName: 'mems',
+module.exports = DB.model('File', {
+  tableName: 'files',
   uuid: true,
   hasTimestamps: true
 })

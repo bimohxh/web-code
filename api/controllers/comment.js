@@ -41,21 +41,21 @@ module.exports = {
       orderByRaw: order || 'id asc'
     }
 
-    let [comments, count, myfavors] = await Promise.all([
+    let [comments] = await Promise.all([
       Comment.query(query).fetchAll({
         withRelated: [{
           'mem': function (mqu) {
-            return mqu.select('id', 'nc', 'avatar', 'location', 'vip')
+            return mqu.select('id', 'nc', 'avatar', 'location')
           }
         }]
-      }),
-      Comment.where(where).count('id'),
-      getMyFavors(req, res)
+      })
+      // Comment.where(where).count('id')
+      // getMyFavors(req, res)
     ])
     let result = comments.toJSON()
-    result.forEach(item => {
-      item.isFavor = myfavors.indexOf(item.id) > -1
-    })
+    // result.forEach(item => {
+    //   item.isFavor = myfavors.indexOf(item.id) > -1
+    // })
     res.send({
       status: '200',
       data: result
@@ -66,7 +66,7 @@ module.exports = {
     let memId = res.locals.mem.id
     if (!res.locals.mem) {
       res.send({
-        status: '4001'
+        status: 401
       })
       return
     }

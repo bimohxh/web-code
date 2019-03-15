@@ -36,7 +36,8 @@ module.exports = {
   */
   plugins: [
     '~/plugins/icon',
-    '~/plugins/axios'
+    '~/plugins/axios',
+    '~/plugins/util'
   ],
 
   /*

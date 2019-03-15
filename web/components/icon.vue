@@ -1,5 +1,10 @@
 <template>
-<span v-html="icon"></span>
+<div class="icon">
+  <span v-html="icon"></span>
+  <span>
+    <slot />
+  </span>
+</div>
 </template>
 
 <script>
@@ -9,10 +14,17 @@ export default {
   data() {
     return {
       icon: feather.icons[this.name].toSvg({
-        width: this.size + 'px',
-        height: this.size + 'px'
+        width: (this.size || 20) + 'px',
+        height: (this.size || 20) + 'px'
       })
     }
   }
 }
 </script>
+
+<style lang="scss">
+.icon {
+  display: inline-flex;
+  align-items: center;
+}
+</style>

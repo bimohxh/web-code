@@ -17,19 +17,38 @@
           </a>
         </div>
       </div>
+    </div>
+    <div class="card mt-2" v-for="(file, index) in code.files" :key="file.id" >
+      <div class="card-header d-flex">
+        <div class="flex-grow-1">
+          {{ file.name }}
+        </div>
+        <div>
+          <a :href="carbonlink" target="_blank" title="导出图片">
+            <icon name="image" size="20" />
+          </a>
+        </div>
+      </div>
       <div class="card-body code-body">
-        <editor flag="text" v-model="code.code" :options="codeEditorOptions" :mode="codemode" />
+        <editor :flag="'code-view-' + index" v-model="file.content" :options="codeEditorOptions" :mode="codemode(file.language)" />
       </div>
     </div>
-    <div class="card mt-4">
+
+    <div class="card mt-4 mb-4">
       <div class="card-body">{{ code.remark }}</div>
     </div>
+    <div class="card mt-4 mb-4">
+      <div class="card-body">{{ code.remark }}</div>
+    </div>
+
+    <comment totype="code" :toid="code.id" />
   </section>
 </template>
 
 <script>
 import Prism from 'prismjs'
 import Editor from '@/components/editor'
+import Comment from '@/components/comment'
 export default {
   async asyncData(context) {
     const res = await context.app.$axios().get('code/' + context.params.id)
@@ -46,17 +65,17 @@ export default {
     }
   },
   components: {
-    Editor
+    Editor,
+    Comment
   },
   computed: {
     carbonlink: function () {
       return `https://carbon.now.sh/?bg=rgba(255%2C255%2C255%2C1)&t=3024-night&wt=none&l=javascript&ds=true&dsyoff=20px&dsblur=68px&wc=true&wa=true&pv=48px&ph=32px&ln=false&fm=Hack&fs=14px&lh=133%25&si=false&code=${encodeURIComponent(this.code.code)}&wm=false`
-    },
-    codemode: function () {
-      if (!this.code.language) {
-        return ''
-      }
-      const lang = this.code.language.toLowerCase()
+    }
+  },
+  methods: {
+    codemode: function (language) {
+      const lang = language.toLowerCase()
       return lang === 'html' ? 'htmlmixed' : lang
     }
   },

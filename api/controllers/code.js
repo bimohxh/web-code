@@ -1,4 +1,5 @@
 const Code = require('../models/code')
+const File = require('../models/file')
 const Oper = require('../models/oper')
 const Mem = require('../models/mem')
 const moment = require('moment')
@@ -47,7 +48,6 @@ let hasOper = async (res, codes, opertyps) => {
   return codes
 }
 
-
 module.exports = {
   get_index: async (req, res) => {
     let page = pagination(req)
@@ -78,18 +78,29 @@ module.exports = {
       return
     }
     let params = {mem_id: memId}
-    ;['title', 'code', 'remark', 'language'].forEach(key => {
+    ;['title', 'remark'].forEach(key => {
       params[key] = req.body[key]
     })
 
     let newItem = await new Code(params).save()
+    for (let file of req.body.files) {
+      let data = {
+        code_id: newItem.id
+      }
+      ;['name', 'content', 'language'].forEach(key => {
+        data[key] = file[key]
+      })
+      await File.forge(data).save()
+    }
     res.send({
       status: 200
     })
   },
 
   get_index_id: async (req, res) => {
-    let _item = await Code.where('id', req.params.action).fetch()
+    let _item = await Code.where('id', req.params.action).fetch({
+      withRelated: ['files']
+    })
     if (!_item) {
       res.send({
         status: 404,
