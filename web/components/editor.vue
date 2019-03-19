@@ -138,4 +138,10 @@ export default {
   .CodeMirror-empty {
     color: #AAA;
   }
+  .cm-s-paraiso-dark span.cm-comment {
+    color: #888c8d;
+  }
+  .cm-s-paraiso-dark div.CodeMirror-selected {
+    background: #871514;
+  }
 </style>

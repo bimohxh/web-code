@@ -1,47 +1,72 @@
 <template>
-  <section class="container code-box">
-    <div class="card">
-      <div class="card-header d-flex">
-        <div class="flex-grow-1">
-          {{ code.title }}
-        </div>
-        <div>
-          <a :href="carbonlink" target="_blank" title="导出图片">
-            <icon name="image" size="20" />
-          </a>
-          <a :href="carbonlink" target="_blank" title="收藏">
-            <icon name="star" size="20" />
-          </a>
-          <a :href="carbonlink" target="_blank" title="有用">
-            <icon name="thumbs-up" size="20" />
-          </a>
+  <div class="container">
+    <div class="row">
+      <div class="col-3">
+        <div class="card code-list">
+          <ul class="list-group list-group-flush">
+            <router-link :to="'/code/' + code.id" v-for="code in codes" :key="code.title" class="list-group-item">
+              {{ code.title }}
+            </router-link>
+          </ul>
         </div>
       </div>
-    </div>
-    <div class="card mt-2" v-for="(file, index) in code.files" :key="file.id" >
-      <div class="card-header d-flex">
-        <div class="flex-grow-1">
-          {{ file.name }}
-        </div>
-        <div>
-          <a :href="carbonlink" target="_blank" title="导出图片">
-            <icon name="image" size="20" />
-          </a>
-        </div>
-      </div>
-      <div class="card-body code-body">
-        <editor :flag="'code-view-' + index" v-model="file.content" :options="codeEditorOptions" :mode="codemode(file.language)" />
-      </div>
-    </div>
+      <div class="col-9">
+        <section class="code-box">
+          <div class="card mb-2 card-code" v-for="(file, index) in code.files" :key="file.id" >
+            <div class="card-header d-flex">
+              <div class="flex-grow-1">
+                <!--{{ file.name }}-->
+                <div class="pretty-icon">
+                  <div></div><div></div><div></div>
+                </div>
+              </div>
+              <div class="flex-grow-1 text-center">
+                index.js
+              </div>
+              <div class="flex-grow-1 text-right">
+                <a :href="carbonlink" target="_blank" title="导出图片">
+                  <icon name="clipboard" size="20" />
+                </a>
+                <a :href="carbonlink" target="_blank" title="导出图片">
+                  <icon name="image" size="20" />
+                </a>
+              </div>
+            </div>
+            <div class="card-body">
+              <editor :flag="'code-view-' + index" v-model="file.content" :options="codeEditorOptions" :mode="codemode(file.language)" />
+            </div>
 
-    <div class="card mt-4" v-if="code.remark && code.remark !== ''">
-      <div class="card-body">{{ code.remark }}</div>
-    </div>
+            <div class="card-footer">
+            </div>
 
-    <div class="mt-4">
-      <comment totype="code" :toid="code.id" />
+            <div class="lang-label">{{file.language}}</div>
+          </div>
+
+          <div class="card mt-2">
+            <div class="card-header d-flex">
+              <div class="flex-grow-1">
+                {{ code.title }}
+              </div>
+              <div>
+                <a :href="carbonlink" target="_blank" title="收藏">
+                  <icon name="star" size="20" />
+                </a>
+                <a :href="carbonlink" target="_blank" title="有用">
+                  <icon name="thumbs-up" size="20" />
+                </a>
+              </div>
+            </div>
+
+            <div class="card-body" v-if="code.remark && code.remark !== ''">{{ code.remark }}</div>
+          </div>
+
+          <div class="mt-4">
+            <comment totype="code" :toid="code.id" />
+          </div>
+        </section>
+      </div>
     </div>
-  </section>
+  </div>
 </template>
 
 <script>
@@ -51,7 +76,9 @@ import Comment from '@/components/comment'
 export default {
   async asyncData(context) {
     const res = await context.app.$axios().get('code/' + context.params.id)
+    const res2 = await context.app.$axios().get('code')
     return {
+      codes: res2.data.data.items,
       code: res.data.data
     }
   },
@@ -88,13 +115,73 @@ export default {
 .code-box {
   max-width: 800px;
 }
-.code-body {
-  padding: 15px 0;
-  background-color: #2f1e2e;
-  .meditor {
-    border: 0;
-    .con {
-      padding: 0;
+
+.card-code {
+  position: relative;
+  & > div {
+    background-color: #27162a;
+  }
+  .card-header {
+    border-bottom: 1px solid #5b4060;
+    font-family: "Roboto Mono", '微软雅黑' , Monaco, courier, monospace;
+    color: #827a83;
+    a {
+      color: #827a83;
+    }
+    .pretty-icon {
+      display: flex;
+      align-items: center;
+      height: 100%;
+      div {
+        width: 13px;
+        height: 13px;
+        border-radius: 100%;
+        background-color: #FF5F56;
+        margin-right: 5px;
+        &:nth-child(2) {
+          background-color: #FFBD2E;
+        }
+        &:nth-child(3) {
+           background-color: #27C93F;
+         }
+      }
+    }
+  }
+  .card-body {
+    padding: 0;
+    padding-top: 15px;
+    background-color: #2f1e2e;
+    .meditor {
+      border: 0;
+      .con {
+        padding: 0;
+      }
+    }
+  }
+  .card-footer {
+    background-color: #2f1e2e;
+    border-top: 0;
+  }
+  .lang-label {
+    // border: #DDD 1px solid;
+    display: inline-block;
+    color: #FFF;
+    position: absolute;
+    right: 10px;
+    top: 60px;
+    padding: 2px 5px;
+    border-radius: 2px;
+    opacity: 0.2;
+    font-size: 12px;
+  }
+}
+
+.code-list {
+  a.list-group-item {
+    text-decoration: none;
+    color: #34495e;
+    &:hover {
+      background-color: #f7f8fa;
     }
   }
 }

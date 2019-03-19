@@ -65,7 +65,6 @@ body {
 
 .container {
   padding: 20px 0;
-  max-width: 1000px;
 }
 
 .list-group-item {
