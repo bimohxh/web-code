@@ -2,23 +2,28 @@
   <div class="container">
     <div class="row">
       <div :class="showList ? 'col-3' : 'col-0'">
-        <div class="card code-list">
-          <ul class="list-group list-group-flush"  v-show="showList">
-            <div class="list-group-item search-box">
-              <input type="text" placeholder="关键字回车搜索..." style="border: none"/>
-              <icon name="search" />
-            </div>
-            <router-link :to="'/code/' + code.id" v-for="code in codes" :key="code.title" class="list-group-item">
-              {{ code.title }}
-            </router-link>
-          </ul>
-          <a class="toggle-btn" href="javascript: void(0)" @click="showList = false">
-            <icon name="chevron-left" />
-          </a>
-        </div>
+        <left-menu :codes="codes" v-show="showList" />
       </div>
       <div :class="showList ? 'col-9' : 'col-12'">
         <section class="code-box">
+          <div class="card mb-2">
+            <div class="card-header d-flex code-top">
+              <div class="flex-grow-1 d-flex align-items-center">
+                <a class="toggle-btn mr-2 d-inline-flex" href="javascript: void(0)" @click="showList = !showList">
+                  <icon name="menu" />
+                </a>
+                <!--<div class="mem-box mr-2">
+                  <img class="avatar" src="https://myawesome.oss-cn-hongkong.aliyuncs.com//mem/1500258094011-442-2419.png?x-oss-process=style/repo-50" />
+                </div>-->
+                <div>{{ code.title }}</div>
+              </div>
+              <div class="d-flex align-items-center">
+                <a :href="carbonlink" class="ml-2" target="_blank" title="收藏">
+                  <icon name="star" size="18" />
+                </a>
+              </div>
+            </div>
+          </div>
           <div class="card mb-2 card-code" v-for="(file, index) in code.files" :key="file.id" >
             <div class="card-header d-flex">
               <div class="flex-grow-1">
@@ -42,24 +47,23 @@
             <div class="card-body">
               <editor :flag="'code-view-' + index" v-model="file.content" :options="codeEditorOptions" :mode="codemode(file.language)" />
             </div>
+            <div class="lang-label">{{file.language}}</div>
 
             <div class="card-footer">
             </div>
 
-            <div class="lang-label">{{file.language}}</div>
           </div>
 
           <div class="card mt-2">
-            <div class="card-header d-flex">
-              <div class="flex-grow-1">
-                {{ code.title }}
+            <div class="card-header d-flex author-box">
+              <div class="mem-box mr-2 flex-grow-1">
+                <img class="avatar mr-2" src="https://myawesome.oss-cn-hongkong.aliyuncs.com//mem/1500258094011-442-2419.png?x-oss-process=style/repo-50" />
+                <span class="mr-2">笔墨伺候（作者） / </span>
+                <span>共发布<strong>10</strong>段代码</span>
               </div>
               <div>
-                <a :href="carbonlink" target="_blank" title="收藏">
-                  <icon name="star" size="20" />
-                </a>
                 <a :href="carbonlink" target="_blank" title="有用">
-                  <icon name="thumbs-up" size="20" />
+                  <icon name="thumbs-up" size="16">4人觉得有用</icon>
                 </a>
               </div>
             </div>
@@ -80,6 +84,8 @@
 import Prism from 'prismjs'
 import Editor from '@/components/editor'
 import Comment from '@/components/comment'
+import LeftMenu from './_menu'
+
 export default {
   async asyncData(context) {
     const res = await context.app.$axios().get('code/' + context.params.id)
@@ -100,7 +106,8 @@ export default {
   },
   components: {
     Editor,
-    Comment
+    Comment,
+    LeftMenu
   },
   computed: {
     carbonlink: function () {
@@ -119,10 +126,35 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .code-box {
   max-width: 800px;
   margin: 0 auto;
+  .code-top {
+    padding: 0.75rem 0.5rem;
+    .toggle-btn {
+      color: #AAA;
+    }
+    a {
+      color: #34495e;
+      text-decoration: none;
+    }
+  }
+  .author-box {
+    a {
+      color: #827a83;
+      text-decoration: none;
+    }
+  }
+  .mem-box {
+    display: flex;
+    align-items: center;
+    .avatar {
+      border-radius: 100%;
+      width: 30px;
+      height: 30px;
+    }
+  }
 }
 
 .card-code {
@@ -182,58 +214,6 @@ export default {
     border-radius: 2px;
     opacity: 0.2;
     font-size: 12px;
-  }
-}
-
-.code-list {
-  overflow-y: auto;
-  position: fixed;
-  min-width: 250px;
-  top: 80px;
-  bottom: 10px;
-  a.list-group-item {
-    text-decoration: none;
-    color: #34495e;
-    &:hover {
-      background-color: #f7f8fa;
-    }
-  }
-  .search-box {
-    padding: 0;
-    position: relative;
-    padding-right: 30px;
-    input {
-      border: none;
-      padding: 12px 10px;
-      width: 100%;
-      outline: none;
-      background: none;
-      &::placeholder {
-        color: #CCC
-      }
-    }
-    .icon {
-      position: absolute;
-      right: 6px;
-      top: 10px;
-      color: #DDD;
-    }
-  }
-  .toggle-btn {
-    width: 30px;
-    height: 60px;
-    position: absolute;
-    right: 0;
-    top: 50%;
-    margin-top: -50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #FFF;
-    box-shadow: 0px 0px 5px #DDD;
-    border-top-left-radius: 3px;
-    border-bottom-left-radius: 3px;
-    opacity: 0.6
   }
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
 <div class="icon">
   <span v-html="icon"></span>
-  <span>
+  <span style="margin-left: 2px;">
     <slot />
   </span>
 </div>
@@ -26,5 +26,8 @@ export default {
 .icon {
   display: inline-flex;
   align-items: center;
+  span {
+    display: inline-flex;
+  }
 }
 </style>
