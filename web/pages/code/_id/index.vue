@@ -34,14 +34,13 @@
       </div>
     </div>
 
-    <div class="card mt-4 mb-4">
-      <div class="card-body">{{ code.remark }}</div>
-    </div>
-    <div class="card mt-4 mb-4">
+    <div class="card mt-4" v-if="code.remark && code.remark !== ''">
       <div class="card-body">{{ code.remark }}</div>
     </div>
 
-    <comment totype="code" :toid="code.id" />
+    <div class="mt-4">
+      <comment totype="code" :toid="code.id" />
+    </div>
   </section>
 </template>
 
@@ -90,7 +89,8 @@ export default {
   max-width: 800px;
 }
 .code-body {
-  padding: 0;
+  padding: 15px 0;
+  background-color: #2f1e2e;
   .meditor {
     border: 0;
     .con {

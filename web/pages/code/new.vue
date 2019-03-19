@@ -113,7 +113,8 @@ export default {
 .code-new-box {
   max-width: 800px;
   .editor-box {
-    padding: 0;
+    padding: 15px 0;
+    background-color: #2f1e2e;
     border-bottom: #DDD 1px solid;
   }
   .meditor {
