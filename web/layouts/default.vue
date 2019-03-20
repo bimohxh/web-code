@@ -17,13 +17,30 @@
             <router-link to="/code/new" class="nav-link">发布代码</router-link>
           </li>
         </ul>
+        <a class="btn btn-outline-secondary btn-sm" href="#"> 登 录 </a>
       </div>
     </nav>
     <nuxt />
+    <div class="login-box card" v-if="showLogin">
+      <a href="javascript: void(0)" class="close-btn">
+        <icon name="x" />
+      </a>
+      <a href=""><icon name="github" size="60" /></a>
+    </div>
   </div>
 </template>
 
-<style>
+<script>
+export default {
+  data() {
+    return {
+      showLogin: false
+    }
+  }
+}
+</script>
+
+<style lang="scss">
 html {
   font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI',
     Roboto, 'Helvetica Neue', Arial, sans-serif;
@@ -99,6 +116,28 @@ a {
   display: inline-flex;
   font-weight: 400;
   user-select: none;
+}
+
+.login-box {
+  position: fixed;
+  width: 100%;
+  max-width: 300px;
+  height: 300px;
+  top: 100px;
+  left: 50%;
+  margin-left: -150px;
+  box-shadow: 0px 0px 50px rgb(186, 194, 200);
+  border: 1px solid #b7c7e5;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .close-btn {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    color: #DDD;
+  }
 }
 
 </style>

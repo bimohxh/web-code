@@ -113,43 +113,24 @@ module.exports = {
     })
   },
 
-  post_logincode: async (req, res) => {
-    let _code = req.body.code
-    if (!_code) {
-      res.send({
-        status: '4210'
-      })
-      return
-    }
-
-    let _login = await Logincode.where({
-      code: _code
+  get_login: (req, res) => {
+    let _mem = await Mem.where({
+      id: 'hxh'
     }).fetch()
-    if (!_login) {
-      res.send({
-        status: '4211'
-      })
-      return
-    }
 
-    // 10 分钟有效
-    let remain = 10 * 60 * 1000 - (Date.now() - (+new Date(_login.get('created_at'))))
-    if (remain < 0) {
-      await _login.destroy()
-      res.send({
-        status: '4310',
-        description: 'code已失效'
-      })
-      return
-    }
-
-    let token = jwt.sign({ id: _login.get('mem_id') }, config.jwtkey, { expiresIn: expireday })
-    await _login.destroy()
+    let loginToken = jwt.sign({
+      id: _mem.id
+    }, config.jwtkey, { expiresIn: expireday })
     res.send({
       status: '200',
       data: [
         {
-          token: token
+          token: loginToken,
+          mem: {
+            id: _mem.id,
+            nc: _mem.get('nc'),
+            avatar: _mem.get('avatar')
+          }
         }
       ]
     })

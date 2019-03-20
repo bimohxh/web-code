@@ -7,7 +7,7 @@
         </div>
         <div >
           <button class="btn btn-sm btn-primary" @click="save" :disabled="!cansub">
-            <icon name="send" size="15" /> 发 布
+            <icon name="send" size="15">发 布</icon>
           </button>
         </div>
       </div>

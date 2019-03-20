@@ -6,6 +6,13 @@ const moment = require('moment-timezone')
 
 module.exports = {
   get_index: async (req, res) => {
+    res.send({
+      status: 200,
+      data: {
+        id: 'xxx',
+        nc: '笔墨伺候'
+      }
+    })
     let _login = res.locals.mem
     if (res.locals.nologin) {
       res.send(res.locals.nologin); return
