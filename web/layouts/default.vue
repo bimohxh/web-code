@@ -5,13 +5,13 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <a href="/" class="navbar-brand" target="_self">
-        <span class="d-block">Web Code</span>
+        <span class="d-block">Wait Code</span>
         <span class="sr-only">Home</span>
       </a>
       <div id="bd-main-nav" class="justify-content-between navbar-collapse collapse" style="display: none;">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a href="/docs/components" class="nav-link active" target="_self">广场</a>
+            <router-link to="/square" class="nav-link">广场</router-link>
           </li>
           <li class="nav-item">
             <router-link to="/code/new" class="nav-link">发布代码</router-link>
@@ -87,6 +87,18 @@ a {
 @font-face {
   font-family: 'Roboto Mono';
   src: url('/fonts/RobotoMono-Regular.ttf')
+}
+
+.tag {
+  font-size: 0.75rem;
+  color: #6e7687;
+  background-color: #e9ecef;
+  border-radius: 3px;
+  padding: 0 .5rem;
+  line-height: 2em;
+  display: inline-flex;
+  font-weight: 400;
+  user-select: none;
 }
 
 </style>

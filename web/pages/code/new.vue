@@ -44,6 +44,17 @@
         <editor flag="desc" v-model="code.remark" placeholder="如果有对上面代码的额外解释，请写在这里...." />
       </div>
     </div>
+    <div class="card mt-2">
+      <div class="card-body">
+        <div class="form-group">
+          <label>标签（以英文 , 分隔）</label>
+          <input type="text" class="form-control" v-model="code.tags" />
+          <div class="mt-2 tag-box">
+            <a v-for="tag in tags" :key="tag"  @click="addTag(tag)" href="javascript: void(0)" class="tag mr-2">{{ tag }}</a>
+          </div>
+        </div>
+      </div>
+    </div>
   </section>
 </template>
 
@@ -69,6 +80,7 @@ export default {
       languages: ['JavaScript', 'CSS', 'HTML', 'Dockerfile', 'Shell', 'Sass'],
       code: {
         title: '',
+        tags: '',
         files: [
           {
             language: 'JavaScript',
@@ -76,7 +88,8 @@ export default {
           }
         ],
         remark: ''
-      }
+      },
+      tags: ['算法', '正则', '小程序', '微信开发', '语义化', 'Vue.js', 'React', 'PWA', '部署', 'Node.js']
     }
   },
   computed: {
@@ -88,6 +101,16 @@ export default {
     codemode: function (language) {
       const lang = language.toLowerCase()
       return lang === 'html' ? 'htmlmixed' : lang
+    },
+    addTag: function (tag) {
+      const _tags = (this.code.tags || '').split(',').map((item) => {
+        item = item.trim()
+        return item
+      }).filter(item => item !== '')
+      if (_tags.indexOf(tag) < 0) {
+        _tags.push(tag)
+      }
+      this.code.tags = _tags.join(',')
     },
     addFile: function () {
       this.code.files.push({
@@ -109,7 +132,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .code-new-box {
   max-width: 800px;
   .editor-box {
@@ -133,6 +156,12 @@ export default {
   .del-file-btn {
     color: #AAA;
     text-decoration: none;
+  }
+
+  .tag-box {
+    a {
+      text-decoration: none;
+    }
   }
 }
 </style>

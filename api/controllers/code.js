@@ -55,7 +55,7 @@ module.exports = {
     let _items = await Code.query({
       limit: page.limit,
       offset: page.skip,
-      select: ['id', 'title', 'read', 'comment', 'collect', 'zan'],
+      select: ['id', 'title', 'read', 'comment', 'collect', 'zan', 'tags'],
       orderByRaw: 'created_at desc'
     }).fetchAll()
     let _count = await Code.count('id')
@@ -78,7 +78,7 @@ module.exports = {
       return
     }
     let params = {mem_id: memId}
-    ;['title', 'remark'].forEach(key => {
+    ;['title', 'remark', 'tags'].forEach(key => {
       params[key] = req.body[key]
     })
 

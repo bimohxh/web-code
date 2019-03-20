@@ -4,6 +4,7 @@ exports.up = function (knex, Promise) {
     table.string('id', 50).primary()
     table.string('mem_id', 50)
     table.string('title', 100)
+    table.string('tags', 200)
     table.text('remark')
     table.integer('read').defaultTo(0) // 阅读个数
     table.integer('comment').defaultTo(0) // 评论个数
