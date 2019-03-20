@@ -16,7 +16,16 @@
 
 <script>
 export default {
-  props: ['codes']
+  props: [],
+  data() {
+    return {
+      codes: []
+    }
+  },
+  async created() {
+    const res2 = await this.$axios().get('code')
+    this.codes = res2.data.data.items
+  }
 }
 </script>
 

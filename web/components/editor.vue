@@ -43,6 +43,9 @@ export default {
       require('codemirror/mode/markdown/markdown.js')
       require('codemirror/mode/javascript/javascript.js')
       require('codemirror/mode/css/css.js')
+      require('codemirror/mode/dockerfile/dockerfile.js')
+      require('codemirror/mode/sass/sass.js')
+      require('codemirror/mode/shell/shell.js')
       require('codemirror/mode/htmlmixed/htmlmixed.js')
       require('codemirror/addon/display/placeholder.js')
       const self = this

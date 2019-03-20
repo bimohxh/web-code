@@ -1,20 +1,17 @@
 <template>
   <div class="container">
     <div class="row">
-      <div :class="showList ? 'col-3' : 'col-0'">
-        <left-menu :codes="codes" v-show="showList" />
-      </div>
-      <div :class="showList ? 'col-9' : 'col-12'">
+      <div class="col-9">
         <section class="code-box">
-          <div class="card mb-2">
+          <!--<div class="card mb-2">
             <div class="card-header d-flex code-top">
               <div class="flex-grow-1 d-flex align-items-center">
                 <a class="toggle-btn mr-2 d-inline-flex" href="javascript: void(0)" @click="showList = !showList">
                   <icon name="menu" />
                 </a>
-                <!--<div class="mem-box mr-2">
+                <div class="mem-box mr-2">
                   <img class="avatar" src="https://myawesome.oss-cn-hongkong.aliyuncs.com//mem/1500258094011-442-2419.png?x-oss-process=style/repo-50" />
-                </div>-->
+                </div>
                 <div>{{ code.title }}</div>
               </div>
               <div class="d-flex align-items-center">
@@ -23,7 +20,7 @@
                 </a>
               </div>
             </div>
-          </div>
+          </div>-->
           <div class="card mb-2 card-code" v-for="(file, index) in code.files" :key="file.id" >
             <div class="card-header d-flex">
               <div class="flex-grow-1">
@@ -54,27 +51,17 @@
 
           </div>
 
-          <div class="card mt-2">
-            <div class="card-header d-flex author-box">
-              <div class="mem-box mr-2 flex-grow-1">
-                <img class="avatar mr-2" src="https://myawesome.oss-cn-hongkong.aliyuncs.com//mem/1500258094011-442-2419.png?x-oss-process=style/repo-50" />
-                <span class="mr-2">笔墨伺候（作者） / </span>
-                <span>共发布<strong>10</strong>段代码</span>
-              </div>
-              <div>
-                <a :href="carbonlink" target="_blank" title="有用">
-                  <icon name="thumbs-up" size="16">4人觉得有用</icon>
-                </a>
-              </div>
-            </div>
-
-            <div class="card-body" v-if="code.remark && code.remark !== ''">{{ code.remark }}</div>
+          <div class="card mt-2" v-if="code.remark && code.remark !== ''">
+            <div class="card-body">{{ code.remark }}</div>
           </div>
 
           <div class="mt-4">
             <comment totype="code" :toid="code.id" />
           </div>
         </section>
+      </div>
+      <div class="col-3">
+        <bar />
       </div>
     </div>
   </div>
@@ -84,14 +71,12 @@
 import Prism from 'prismjs'
 import Editor from '@/components/editor'
 import Comment from '@/components/comment'
-import LeftMenu from './_menu'
+import Bar from './_bar'
 
 export default {
   async asyncData(context) {
     const res = await context.app.$axios().get('code/' + context.params.id)
-    const res2 = await context.app.$axios().get('code')
     return {
-      codes: res2.data.data.items,
       code: res.data.data
     }
   },
@@ -107,7 +92,7 @@ export default {
   components: {
     Editor,
     Comment,
-    LeftMenu
+    Bar
   },
   computed: {
     carbonlink: function () {

@@ -66,7 +66,7 @@ export default {
         lineNumbers: true,
         theme: 'paraiso-dark'
       },
-      languages: ['JavaScript', 'CSS', 'HTML'],
+      languages: ['JavaScript', 'CSS', 'HTML', 'Dockerfile', 'Shell', 'Sass'],
       code: {
         title: '',
         files: [
