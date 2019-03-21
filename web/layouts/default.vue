@@ -11,7 +11,10 @@
       <div id="bd-main-nav" class="justify-content-between navbar-collapse collapse" style="display: none;">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <router-link to="/square" class="nav-link">{{ $t('square') }}</router-link>
+            <router-link to="/" class="nav-link">码库</router-link>
+          </li>
+          <li class="nav-item">
+            <router-link to="/square" class="nav-link">广场</router-link>
           </li>
           <li class="nav-item">
             <router-link to="/code/new" class="nav-link">发布代码</router-link>

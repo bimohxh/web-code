@@ -11,6 +11,9 @@
           </button>
         </div>
       </div>
+      <div class="card-body alert alert-warning mb-0">
+        <icon name="alert-triangle" size="18" > 发布须知：请勿发布垃圾和违反法律的代码，否则将会失去发布的权限！</icon>
+      </div>
     </div>
     <!-- 代码文件 -->
     <div v-for="(file, index) in code.files" :key="file" class="card mt-2">
