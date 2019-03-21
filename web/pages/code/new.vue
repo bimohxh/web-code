@@ -123,7 +123,10 @@ export default {
       this.code.files.splice(this.code.files.indexOf(file), 1)
     },
     save: async function () {
-      await this.$axios().post('code', this.code)
+      const res = await this.$axios().post('code', this.code)
+      if (res.data.status === 200) {
+        this.$router.push('/code/newok')
+      }
     }
   },
   components: {

@@ -112,7 +112,7 @@ module.exports = {
 
   get_login: async (req, res) => {
     let _mem = await Mem.where({
-      id: 'hxh'
+      id: 'hxh568701382'
     }).fetch()
 
     let loginToken = jwt.sign({

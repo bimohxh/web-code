@@ -1,13 +1,8 @@
 const Mem = require('../models/mem')
-const Config = require('../config')
-const jwt = require('jsonwebtoken')
-const crypto = require('crypto')
-const moment = require('moment-timezone')
 
 module.exports = {
   get_index: async (req, res) => {
     let _login = res.locals.mem
-    console.log('请求了一次', _login)
     if (!_login) {
       res.send({
         status: 1000,

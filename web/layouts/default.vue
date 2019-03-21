@@ -11,15 +11,15 @@
       <div id="bd-main-nav" class="justify-content-between navbar-collapse collapse" style="display: none;">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <router-link to="/square" class="nav-link">广场</router-link>
+            <router-link to="/square" class="nav-link">{{ $t('square') }}</router-link>
           </li>
           <li class="nav-item">
             <router-link to="/code/new" class="nav-link">发布代码</router-link>
           </li>
         </ul>
-        <div v-if="$store.state.session">
-          {{ $store.state.session.nc }}
-        </div>
+        <router-link :to="'/mem/' + $store.state.session.id" v-if="$store.state.session" class="nav-mem">
+          <img :src="$store.state.session.avatar" class="avatar" />
+        </router-link>
         <button class="btn btn-outline-secondary btn-sm" @click="login" v-else>登 录 </button>
       </div>
     </nav>
@@ -86,6 +86,11 @@ body {
   margin: 0;
 }
 
+a {
+  text-decoration: none;
+  color: #34495e;
+}
+
 .bd-navbar {
   background-color: #000;
 }
@@ -133,6 +138,13 @@ a {
   user-select: none;
 }
 
+.nav-mem {
+  .avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
+  }
+}
 .login-box {
   position: fixed;
   width: 100%;

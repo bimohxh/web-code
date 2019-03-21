@@ -3,24 +3,6 @@
     <div class="row">
       <div class="col-9">
         <section class="code-box">
-          <!--<div class="card mb-2">
-            <div class="card-header d-flex code-top">
-              <div class="flex-grow-1 d-flex align-items-center">
-                <a class="toggle-btn mr-2 d-inline-flex" href="javascript: void(0)" @click="showList = !showList">
-                  <icon name="menu" />
-                </a>
-                <div class="mem-box mr-2">
-                  <img class="avatar" src="https://myawesome.oss-cn-hongkong.aliyuncs.com//mem/1500258094011-442-2419.png?x-oss-process=style/repo-50" />
-                </div>
-                <div>{{ code.title }}</div>
-              </div>
-              <div class="d-flex align-items-center">
-                <a :href="carbonlink" class="ml-2" target="_blank" title="收藏">
-                  <icon name="star" size="18" />
-                </a>
-              </div>
-            </div>
-          </div>-->
           <div class="card mb-2 card-code" v-for="(file, index) in code.files" :key="file.id" >
             <div class="card-header d-flex">
               <div class="flex-grow-1">
