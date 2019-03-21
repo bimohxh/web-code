@@ -1,5 +1,6 @@
 import axios from 'axios'
 import Cookie from 'js-cookie'
+const cookieparser = require('cookieparser')
 const Config = require('../config')
 
 // 请求分为两类：
@@ -7,16 +8,15 @@ const Config = require('../config')
 // 2类是服务端发出的请求：则需要通过 req.headers.cookie 去获取了
 export default ({ app, req }, inject) => {
   inject('axios', () => {
-    const token = null
-    if (req && req.headers.cookie) {
-      const _cookie = req.headers.cookie.split(';').find(c => c.trim().startsWith('awlogin='))
-      if (_cookie) {
-        token = _cookie.split('=')[1]
-      }
+    let token = null
+    if (process.server) {
+      token = cookieparser.parse(req.headers.cookie || '').atoken
+    } else {
+      token = Cookie.get('atoken')
     }
     return axios.create({
       baseURL: Config.API,
-      headers: { atoken: (token || Cookie.get('awlogin') || '') }
+      headers: { atoken: token || '' }
     })
   })
 }

@@ -6,10 +6,7 @@ const jwt = require('jsonwebtoken')
 const moment = require('moment')
 const WXBizDataCrypt = require('../lib/WXBizDataCrypt')
 
-const Logincode = require('../models/logincode')
-
 const expireday = '30 days'
-const FreeVip = '5' // 免费会员 5 天
 
 // 获取 uniond id
 let fetchUnionID = function (sessionKey, encryptedData, iv) {
@@ -113,7 +110,7 @@ module.exports = {
     })
   },
 
-  get_login: (req, res) => {
+  get_login: async (req, res) => {
     let _mem = await Mem.where({
       id: 'hxh'
     }).fetch()
@@ -122,7 +119,7 @@ module.exports = {
       id: _mem.id
     }, config.jwtkey, { expiresIn: expireday })
     res.send({
-      status: '200',
+      status: 200,
       data: [
         {
           token: loginToken,

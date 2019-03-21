@@ -17,7 +17,10 @@
             <router-link to="/code/new" class="nav-link">发布代码</router-link>
           </li>
         </ul>
-        <a class="btn btn-outline-secondary btn-sm" href="#"> 登 录 </a>
+        <div v-if="$store.state.session">
+          {{ $store.state.session.nc }}
+        </div>
+        <button class="btn btn-outline-secondary btn-sm" @click="login" v-else>登 录 </button>
       </div>
     </nav>
     <nuxt />
@@ -31,10 +34,22 @@
 </template>
 
 <script>
+import Cookie from 'js-cookie'
 export default {
   data() {
     return {
       showLogin: false
+    }
+  },
+  methods: {
+    login: async function () {
+      const res = await this.$axios().get('auth/login')
+      if (res.data.status === 200) {
+        Cookie.set('atoken', res.data.data[0].token, { expires: 30 })
+        this.$store.commit('setAuth', res.data.data[0].mem)
+      } else {
+        Cookie.set('atoken', null)
+      }
     }
   }
 }

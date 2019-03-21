@@ -6,33 +6,28 @@ const moment = require('moment-timezone')
 
 module.exports = {
   get_index: async (req, res) => {
-    res.send({
-      status: 200,
-      data: {
-        id: 'xxx',
-        nc: '笔墨伺候'
-      }
-    })
     let _login = res.locals.mem
-    if (res.locals.nologin) {
-      res.send(res.locals.nologin); return
-    }
-    let _mem = await Mem.fullData({
-      id: res.locals.mem.id
-    })
-    if (!_mem) {
+    console.log('请求了一次', _login)
+    if (!_login) {
       res.send({
-        status: '1000',
+        status: 1000,
         msg: '用户未登陆'
       })
       return
     }
-    
-    let _today = moment(Date.now()).tz('Asia/Shanghai').format('YYYY-MM-DD')
-
+    let _mem = await Mem.where({
+      id: _login.id
+    }).fetch()
+    if (!_mem) {
+      res.send({
+        status: 1000,
+        msg: '用户未登陆'
+      })
+      return
+    }
     res.send({
-      status: '200',
-      data: [_mem]
+      status: 200,
+      data: _mem
     })
   }
 }
