@@ -51,14 +51,22 @@ let hasOper = async (res, codes, opertyps) => {
 module.exports = {
   get_index: async (req, res) => {
     let page = pagination(req)
+    
+    _where = {
+    }
+    ;['mem_id'].forEach(key => {
+      if (req.query[key] !== undefined) {
+        _where[key] = req.query[key]
+      }
+    })
 
-    let _items = await Code.query({
+    let _items = await Code.where(_where).query({
       limit: page.limit,
       offset: page.skip,
       select: ['id', 'title', 'read', 'comment', 'collect', 'zan', 'tags'],
       orderByRaw: 'created_at desc'
     }).fetchAll()
-    let _count = await Code.count('id')
+    let _count = await Code.where(_where).count('id')
 
     res.send({
       status: '200',

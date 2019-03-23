@@ -6,7 +6,7 @@
       <div class="ml-3">
         <div>
           <h4 class="card-title">{{ mem.nc }}</h4>
-          <div>Wait Code 第 102 位会员，于 2013-12-10 加入</div>
+          <div>Wait Code 第 {{ mem.index }} 位会员，于 {{ formatDate(mem.created_at) }} 加入</div>
         </div>
       </div>
       <div class="socail-link">
@@ -22,11 +22,17 @@
 </div>
 </template>
 <script>
+import moment from 'moment'
 export default {
   async asyncData(context) {
     const res = await context.app.$axios().get('mem/' + context.params.id)
     return {
       mem: res.data.data[0]
+    }
+  },
+  methods: {
+    formatDate: function (date) {
+      return moment(date).format('YYYY-MM-DD')
     }
   }
 }

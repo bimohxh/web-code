@@ -2,8 +2,8 @@
 <paginate
   :page-count="20"
   :click-handler="callback"
-  :prev-text="'Prev'"
-  :next-text="'Next'"
+  :prev-text="'«'"
+  :next-text="'»'"
   :container-class="'pagination'"
   :page-class="'page-item'"
   page-link-class="page-link"
@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import Paginate from 'vuejs-paginate/src/components/Paginate.vue'
+import Paginate from 'vuejs-paginate'
 export default {
   props: ['callback'],
   components: {

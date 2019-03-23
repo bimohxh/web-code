@@ -6,6 +6,7 @@ exports.up = function (knex, Promise) {
     table.string('mobile', 100)
     table.string('avatar')
     table.string('gender', 1)
+    table.integer('index', 1)
     table.string('location', 50)
     table.timestamps()
   })

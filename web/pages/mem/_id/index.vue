@@ -17,9 +17,9 @@
 </template>
 <script>
 export default {
-  watchQuery: ['action'],
+  watchQuery: ['action', 'page'],
   async asyncData(context) {
-    const res = await context.app.$axios().get('code')
+    const res = await context.app.$axios().get('code?mem_id=' + context.params.id)
     return {
       codes: res.data.data.items,
       action: context.query.action || 'pub'
@@ -49,7 +49,6 @@ export default {
     color: #34495e;
     padding: 10px;
     &.active-true {
-      font-weight: bold;
       border-bottom: #d9860a 1px solid;
       margin-bottom: -1px;
       color: #d9860a;
