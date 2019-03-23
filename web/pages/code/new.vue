@@ -1,11 +1,14 @@
 <template>
   <section class="container code-new-box">
     <div class="card">
-      <div class="card-header d-flex">
+      <div class="card-header d-flex align-items-center">
         <div class=" flex-grow-1">
           <input type="text" class="form-control" placeholder="必须给标题，说明代码用途" v-model="code.title" style="width: 300px;" />
         </div>
-        <div >
+        <div class="flex-grow-1">
+          <vue-switch v-model="code.is_public" true="y" false="n">{{ code.is_public === 'y' ? '公开代码' : '私有代码' }}</vue-switch>
+        </div>
+        <div>
           <button class="btn btn-sm btn-primary" @click="save" :disabled="!cansub">
             <icon name="send" size="15">发 布</icon>
           </button>
@@ -76,6 +79,7 @@ export default {
   data() {
     return {
       icon: '<hr/>',
+      checked: true,
       codeEditorOptions: {
         lineNumbers: true,
         theme: 'paraiso-dark'
@@ -84,6 +88,7 @@ export default {
       code: {
         title: '',
         tags: '',
+        is_public: 'y',
         files: [
           {
             language: 'JavaScript',

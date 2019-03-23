@@ -78,7 +78,7 @@ module.exports = {
       return
     }
     let params = {mem_id: memId}
-    ;['title', 'remark', 'tags'].forEach(key => {
+    ;['title', 'remark', 'tags', 'is_public'].forEach(key => {
       params[key] = req.body[key]
     })
 

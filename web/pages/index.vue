@@ -9,7 +9,7 @@
               <icon name="search" />
             </div>
             <div class="list-group-item status-box">
-              共找到 120 段符合条件的代码
+              共找到 {{ amount }} 段符合条件的代码
             </div>
             <router-link :to="'/code/' + code.id" v-for="code in codes" :key="code.title" class="list-group-item d-flex">
               <div class="flex-grow-1">{{ code.title }}</div>
@@ -18,6 +18,9 @@
               </div>
             </router-link>
           </ul>
+          <div class="card-footer">
+            <pagination :callback="pagiClick" />
+          </div>
         </div>
       </div>
       <div class="col-4">
@@ -26,7 +29,7 @@
             <span class="card-title">热门标签</span>
           </div>
           <div class="card-body">
-            <a href="" v-for="tag in tags" :key="tag" class="tag mr-2 mb-2">{{ tag }}</a>
+            <router-link :to="'?tag=' + tag" v-for="tag in tags" :key="tag" class="tag mr-2 mb-2">{{ tag }}</router-link>
           </div>
         </div>
       </div>
@@ -36,6 +39,7 @@
 
 <script>
 export default {
+  watchQuery: ['tag', 'page'],
   head() {
     return {
       title: '首页'
@@ -44,7 +48,8 @@ export default {
   async asyncData(context) {
     const res = await context.app.$axios().get('code')
     return {
-      codes: res.data.data.items
+      codes: res.data.data.items,
+      amount: res.data.data.count
     }
   },
   data() {
@@ -59,6 +64,14 @@ export default {
     },
     tagsArr: function (code) {
       return (code.tags || '').split(',').filter(item => item !== '').join(' / ')
+    },
+    pagiClick: function (page) {
+      let _href = '?page=' + page
+      const _tag = this.$route.query.tag
+      if (_tag && _tag !== '') {
+        _href += '&tag=' + _tag
+      }
+      this.$router.push(_href)
     }
   },
   created() {

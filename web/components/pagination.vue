@@ -1,61 +1,26 @@
 <template>
-  <div class="page-box">
-    <div :id="pid"></div>
-    <div class="summary">
-      共查询到 
-      <strong> {{option.totalcount}} </strong> 条记录
-    </div>
-  </div>
+<paginate
+  :page-count="20"
+  :click-handler="callback"
+  :prev-text="'Prev'"
+  :next-text="'Next'"
+  :container-class="'pagination'"
+  :page-class="'page-item'"
+  page-link-class="page-link"
+  prev-class="page-item"
+  prev-link-class="page-link"
+  next-class="page-item"
+  next-link-class="page-link"
+  >
+</paginate>
 </template>
 
 <script>
+import Paginate from 'vuejs-paginate/src/components/Paginate.vue'
 export default {
-  props: ['option'],
-  methods: {
-    pgination: function () {
-      let isFirstFetch = true
-      let _self = this
-      window.$(`#${this.pid}`).pagination({
-        dataSource: [this.option.totalcount],
-        pageSize: 15,
-        showGoInput: true,
-        showGoButton: true,
-        goButtonText: '跳转',
-        callback: function (data, pagination) {
-          if (isFirstFetch) {
-            isFirstFetch = false
-            return
-          }
-          if (_self.option.callback) {
-            _self.option.callback(pagination.pageNumber)
-          }
-        }
-      })
-    }
-  },
-  data () {
-    return {
-      pid: `pagina-${parseInt(Math.random(10) * 10000)}`
-    }
-  },
-  watch: {
-    'option.totalcount': function () {
-      this.pgination()
-    }
-  },
-  mounted () {
-    this.pgination()
+  props: ['callback'],
+  components: {
+    Paginate
   }
 }
 </script>
-
-<style lang="scss" scoped>
-.page-box {
-  display: flex;
-  align-items: center;
-
-  .summary {
-    margin-left: 20px;
-  }
-}
-</style>
