@@ -4,6 +4,8 @@ var router = require('./lib/router')
 var bodyParser = require('body-parser')
 var login = require('./middleware/login')
 var busboy = require('connect-busboy')
+const config = require('./config')
+
 require('body-parser-xml')(bodyParser)
 
 global.connections = []
@@ -31,6 +33,6 @@ app.use(router)
 
 var server = require('http').createServer(app)
 
-server.listen(3020)
+server.listen(config.server.port)
 
-console.log('服务器启动，监听：3020')
+console.log('服务器启动，监听：' + config.server.port)
