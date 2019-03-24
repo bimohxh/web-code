@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import Paginate from 'vuejs-paginate'
+import Paginate from 'vuejs-paginate/src/components/Paginate.vue'
 export default {
   props: ['callback'],
   components: {

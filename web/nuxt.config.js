@@ -39,7 +39,7 @@ module.exports = {
     '~/plugins/axios',
     '~/plugins/util',
     '~/plugins/switch',
-    { src: '~/plugins/pagination', ssr: false }
+    { src: '~/plugins/pagination', ssr: true }
   ],
 
   /*
