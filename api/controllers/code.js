@@ -14,59 +14,38 @@ let pagination = req => {
   }
 }
 
-// 我是否收藏和点赞某个文章
-let hasOper = async (res, codes, opertyps) => {
-  if (!res.locals.mem) {
-    codes.forEach(item => {
-      item.myoper = opertyps.reduce((result, key) => {
-        result[key] = false
-        return result
-      }, {})
-    })
-    return codes
-  }
-  let tids = codes.map(item => {
-    return item.id
-  })
-  let _opers = []
-  if (res.locals.mem) {
-    _opers = await Oper.where({
-      totype: 'code',
-      mem_id: res.locals.mem.id
-    }).where('toid', 'in', tids).where('opertype', 'in', opertyps).fetchAll()
-    _opers = _opers.toJSON().map(item => {
-      return `${item.opertype}-${item.toid}`
-    })
-  }
-
-  codes.forEach(item => {
-    item.myoper = opertyps.reduce((result, key) => {
-      result[key] = _opers.indexOf(`${key}-${item.id}`) > -1
-      return result
-    }, {})
-  })
-  return codes
+const formatQuery = (wheres, query) => {
+  return wheres.reduce((result, item) => {
+    return query.where(...item)
+  }, query)
 }
 
 module.exports = {
   get_index: async (req, res) => {
     let page = pagination(req)
     
-    _where = {
+    let _wheres = [
+      ['is_public', '=', 'y']
+    ]
+
+    let _tag = req.query.tag
+    if (_tag) {
+      _wheres.push(['tags', 'like', `%${_tag}%`])
     }
+
     ;['mem_id'].forEach(key => {
       if (req.query[key] !== undefined) {
-        _where[key] = req.query[key]
+        _wheres.push([key, '=', req.query[key]])
       }
     })
 
-    let _items = await Code.where(_where).query({
+    let _items = await formatQuery(_wheres, Code).query({
       limit: page.limit,
       offset: page.skip,
       select: ['id', 'title', 'read', 'comment', 'collect', 'zan', 'tags'],
       orderByRaw: 'created_at desc'
     }).fetchAll()
-    let _count = await Code.where(_where).count('id')
+    let _count = await formatQuery(_wheres, Code).count('id')
 
     res.send({
       status: '200',

@@ -46,7 +46,15 @@ export default {
     }
   },
   async asyncData(context) {
-    const res = await context.app.$axios().get('code')
+    const _params = {}
+    ;['tag'].forEach((key) => {
+      if (context.query[key]) {
+        _params[key] = context.query[key]
+      }
+    })
+    const res = await context.app.$axios().get('code', {
+      params: _params
+    })
     return {
       codes: res.data.data.items,
       amount: res.data.data.count
