@@ -1,6 +1,5 @@
 const pkg = require('./package')
 
-
 module.exports = {
   mode: 'universal',
 
@@ -39,7 +38,8 @@ module.exports = {
     '~/plugins/axios',
     '~/plugins/util',
     '~/plugins/switch',
-    { src: '~/plugins/pagination', ssr: true }
+    { src: '~/plugins/pagination', ssr: true },
+    { src: '~/plugins/alert', ssr: false }
   ],
 
   /*

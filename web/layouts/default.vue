@@ -4,10 +4,10 @@
       <button type="button" aria-label="Toggle navigation" aria-controls="bd-main-nav" aria-expanded="false" class="navbar-toggler">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <a href="/" class="navbar-brand" target="_self">
+      <nuxt-link to="/" class="navbar-brand" target="_self">
         <span class="d-block">Wait Code</span>
         <span class="sr-only">Home</span>
-      </a>
+      </nuxt-link>
       <div id="bd-main-nav" class="justify-content-between navbar-collapse collapse" style="display: none;">
         <ul class="navbar-nav">
           <li class="nav-item">
@@ -26,6 +26,7 @@
         <button class="btn btn-outline-secondary btn-sm" @click="login" v-else>登 录 </button>
       </div>
     </nav>
+    <div id="alert-container"></div>
     <nuxt />
     <div class="login-box card" v-if="showLogin">
       <a href="javascript: void(0)" class="close-btn">
@@ -98,6 +99,19 @@ a {
   background-color: #000;
 }
 
+#alert-container {
+  position: fixed;
+  top: 100px;
+  right: 20px;
+  z-index: 100;
+  text-align: center;
+  .alert {
+    // border-radius: 0;
+    margin: 0;
+    display: inline-block;
+  }
+}
+
 .card {
   box-shadow: 0 1px 10px 0 rgba(0,0,0,.05);
   border: 1px solid #e4eaf5;
@@ -139,6 +153,10 @@ a {
   display: inline-flex;
   font-weight: 400;
   user-select: none;
+}
+
+.pagination {
+  margin-bottom: 0;
 }
 
 .nav-mem {

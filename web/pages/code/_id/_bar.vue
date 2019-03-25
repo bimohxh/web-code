@@ -1,10 +1,10 @@
 <template>
 <div class="code-bar">
-  <div class="card">
-    <div class="card-body d-flex ">
-      <img class="avatar" src="https://l.ruby-china.com/user/avatar/6553.jpg!md" />
+  <div class="card"  v-if="code.mem">
+    <div class="card-body d-flex">
+      <img class="avatar" :src="code.mem.avatar" />
       <div class="ml-2">
-        <div><strong>笔墨伺候</strong> <small>北京</small></div>
+        <div><strong>{{ code.mem.nc }}</strong> <small>{{ code.mem.location }}</small></div>
         <div>代码 10 / 赞 50</div>
       </div>
     </div>
@@ -12,7 +12,7 @@
   <div class="card mt-2">
     <div class="card-header d-flex">
       <div class="flex-grow-1">
-        <span>快速排序快速排序快速排</span>
+        <span>{{ code.title }}</span>
       </div>
       <a href="javascript: void(0)" class="star-btn">
         <icon name="star" size="18" />
@@ -22,7 +22,7 @@
       <a href="javascript: void(0)" class="mt-3">
         <icon name="thumbs-up" size="40"></icon>
       </a>
-      <div class="mt-3">10人觉得很赞</div>
+      <div class="mt-3">{{ code.zan }}人觉得很赞</div>
     </div>
     <div class="card-footer d-flex">
       <div class="flex-grow-1">
@@ -38,12 +38,24 @@
       </div>
     </div>
   </div>
+
+  <div class="card mt-2" v-if="isAuthor">
+    <router-link :to="'/code/' + code.id + '/edit'" class="card-body d-flex" style="justify-content: space-between">
+      <span>编辑该代码段</span>
+      <icon name="edit-2" size="16" />
+    </router-link>
+  </div>
 </div>
 </template>
 
 <script>
 export default {
-
+  props: ['code'],
+  computed: {
+    isAuthor: function () {
+      return (this.$store.state.session || {}).id === this.code.mem_id
+    }
+  }
 }
 </script>
 

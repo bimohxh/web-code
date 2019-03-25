@@ -1,6 +1,7 @@
 <template>
 <paginate
-  :page-count="20"
+  :page-count="pageCount"
+  v-model="page"
   :click-handler="callback"
   :prev-text="'«'"
   :next-text="'»'"
@@ -18,7 +19,7 @@
 <script>
 import Paginate from 'vuejs-paginate/src/components/Paginate.vue'
 export default {
-  props: ['callback'],
+  props: ['callback', 'pageCount', 'page'],
   components: {
     Paginate
   }

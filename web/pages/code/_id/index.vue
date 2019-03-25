@@ -43,7 +43,7 @@
         </section>
       </div>
       <div class="col-3">
-        <bar />
+        <bar :code="code" />
       </div>
     </div>
   </div>

@@ -19,7 +19,7 @@
             </router-link>
           </ul>
           <div class="card-footer">
-            <pagination :callback="pagiClick" />
+            <pagination :callback="pagiClick" :pageCount="pageCount" :page="currentPage" />
           </div>
         </div>
       </div>
@@ -38,6 +38,7 @@
 </template>
 
 <script>
+const pageSize = 20
 export default {
   watchQuery: ['tag', 'page'],
   head() {
@@ -46,7 +47,10 @@ export default {
     }
   },
   async asyncData(context) {
-    const _params = {}
+    const _params = {
+      page: context.query.page || 1,
+      limit: pageSize
+    }
     ;['tag'].forEach((key) => {
       if (context.query[key]) {
         _params[key] = context.query[key]
@@ -57,7 +61,9 @@ export default {
     })
     return {
       codes: res.data.data.items,
-      amount: res.data.data.count
+      amount: res.data.data.count,
+      pageCount: Math.ceil(res.data.data.count / pageSize),
+      currentPage: _params.page
     }
   },
   data() {
@@ -66,10 +72,6 @@ export default {
     }
   },
   methods: {
-    fetchData: async function () {
-      const res = await this.$axios().get('code')
-      this.codes = res.data.data.items
-    },
     tagsArr: function (code) {
       return (code.tags || '').split(',').filter(item => item !== '').join(' / ')
     },

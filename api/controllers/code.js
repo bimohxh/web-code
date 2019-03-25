@@ -23,7 +23,7 @@ const formatQuery = (wheres, query) => {
 module.exports = {
   get_index: async (req, res) => {
     let page = pagination(req)
-    
+
     let _wheres = [
       ['is_public', '=', 'y']
     ]
@@ -57,13 +57,13 @@ module.exports = {
   },
 
   post_index: async (req, res) => {
-    let memId = res.locals.mem.id
     if (!res.locals.mem) {
       res.send({
         status: 401
       })
       return
     }
+    let memId = res.locals.mem.id
     let params = {mem_id: memId}
     ;['title', 'remark', 'tags', 'is_public'].forEach(key => {
       params[key] = req.body[key]
@@ -84,9 +84,58 @@ module.exports = {
     })
   },
 
+  put_index: async (req, res) => {
+    if (!res.locals.mem) {
+      res.send({
+        status: 401
+      })
+      return
+    }
+    let _code = await Code.where({ id: req.body.id }).fetch()
+    if (!_code || _code.get('mem_id') !== res.locals.mem.id) {
+      res.send({
+        status: 402
+      })
+      return
+    }
+
+    ;['title', 'remark', 'tags', 'is_public'].forEach(key => {
+      _code.set(key, req.body[key])
+    })
+
+    await _code.save()
+
+    // 删除已删除的文件
+    let newFileIDs = req.body.files.filter(item => item.id).map(item => item.id)
+    let oldFileIDs = (await File.where({
+      code_id: _code.id
+    }).fetchAll()).pluck('id')
+    for (let fid of oldFileIDs) {
+      if (!newFileIDs.includes(fid)) {
+        await File.forge({ id: fid }).destroy()
+      }
+    }
+
+    for (let file of req.body.files) {
+      // 更新和新增
+      let data = file.id ? {
+        id: file.id
+      } : {
+        code_id: _code.id
+      }
+      ;['name', 'content', 'language'].forEach(key => {
+        data[key] = file[key]
+      })
+      await File.forge(data).save()
+    }
+    res.send({
+      status: 200
+    })
+  },
+
   get_index_id: async (req, res) => {
     let _item = await Code.where('id', req.params.action).fetch({
-      withRelated: ['files']
+      withRelated: ['files', 'mem']
     })
     if (!_item) {
       res.send({
