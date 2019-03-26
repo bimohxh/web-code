@@ -80,10 +80,9 @@ export default {
 </script>
 
 <style lang="scss">
-  .meditor {
+.meditor {
     border: #DDD 1px solid;
     border-radius: 2px;
-  }
   .toolbar {
     padding: 10px;
     border-bottom: #EEE 1px solid;
@@ -147,4 +146,5 @@ export default {
   .cm-s-paraiso-dark div.CodeMirror-selected {
     background: #871514;
   }
+}
 </style>
