@@ -49,7 +49,8 @@ export default {
   async asyncData(context) {
     const _params = {
       page: context.query.page || 1,
-      limit: pageSize
+      limit: pageSize,
+      is_optimization: 'y'
     }
     ;['tag'].forEach((key) => {
       if (context.query[key]) {

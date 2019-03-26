@@ -3,7 +3,15 @@
     <v-alert :option="alertOption" />
     <div class="card">
       <div class="card-header">
-        <span style="font-size: 1.2rem">{{ code.id ? '更新代码段' : '发布代码段'}}</span>
+        <h5 class="card-title">
+          <div v-if="code.id" class="d-flex align-items-center">
+            <router-link :to="'/code/' + code.id" class="btn btn-sm btn-outline-secondary d-inline-flex mr-2">
+              <icon name="chevron-left" size="15">返回</icon>
+            </router-link>
+            <span>更新代码段</span>
+          </div>
+          <span v-else>发布代码段</span>
+        </h5>
       </div>
       <div class="card-body alert alert-danger mb-0" v-if="!$store.state.session">
         你尚未登录，请先登录后再操作！
@@ -39,7 +47,7 @@
             <b-dropdown :text="file.language" variant="outline-secondary" size="sm" dropright>
               <template  v-for="(group, index) in languages">
                 <b-dropdown-item v-for="language in group" :key="language" @click="file.language = language">{{ language }}</b-dropdown-item>
-                <b-dropdown-divider :key="group" v-if="index !== languages.length - 1" />
+                <b-dropdown-divider :key="index" v-if="index !== languages.length - 1" />
               </template>
             </b-dropdown>
           </div>
@@ -137,7 +145,7 @@ export default {
     },
     submit: function () {
       this.submitStatus = 'success'
-      // this.code.id ? this.update() : this.save()
+      this.code.id ? this.update() : this.save()
     },
     save: async function () {
       const res = await this.$axios().post('code', this.code)
@@ -149,7 +157,11 @@ export default {
       const res = await this.$axios().put('code', this.code)
       if (res.data.status === 200) {
         // this.$router.push('/code/newok')
-        this.$alert('success')
+        this.alertOption = {
+          show: true,
+          type: 'success',
+          msg: '更新代码段成功！你可以继续更新或返回'
+        }
       }
     }
   },

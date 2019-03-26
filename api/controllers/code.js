@@ -33,6 +33,7 @@ module.exports = {
       _wheres.push(['tags', 'like', `%${_tag}%`])
     }
 
+    // is_optimization
     ;['mem_id'].forEach(key => {
       if (req.query[key] !== undefined) {
         _wheres.push([key, '=', req.query[key]])
@@ -42,9 +43,11 @@ module.exports = {
     let _items = await formatQuery(_wheres, Code).query({
       limit: page.limit,
       offset: page.skip,
-      select: ['id', 'title', 'read', 'comment', 'collect', 'zan', 'tags'],
+      select: ['id', 'title', 'read', 'comment', 'collect', 'zan', 'tags', 'mem_id', 'created_at'],
       orderByRaw: 'created_at desc'
-    }).fetchAll()
+    }).fetchAll({
+      withRelated: ['mem']
+    })
     let _count = await formatQuery(_wheres, Code).count('id')
 
     res.send({

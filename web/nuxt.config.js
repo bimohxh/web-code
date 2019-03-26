@@ -38,6 +38,7 @@ module.exports = {
     '~/plugins/axios',
     '~/plugins/util',
     '~/plugins/switch',
+    '~/plugins/timeago',
     { src: '~/plugins/pagination', ssr: true },
     { src: '~/plugins/alert', ssr: false }
   ],

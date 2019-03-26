@@ -116,6 +116,11 @@ a {
   box-shadow: 0 1px 10px 0 rgba(0,0,0,.05);
   border: 1px solid #e4eaf5;
 }
+.card-header {
+  .card-title {
+    margin-bottom: 0;
+  }
+}
 
 .container {
   padding: 20px 0;
@@ -187,5 +192,4 @@ a {
     color: #DDD;
   }
 }
-
 </style>
